@@ -98,7 +98,7 @@ calendardb <- download.calendardb()
   quotesdb <- read.csv("quotesdb.csv")
 
 #fields of financial table, 313 fields
-unique(financedb[financedb$quote == 1,]$name)
+#unique(financedb[financedb$quote == 1,]$name)
 
 #---::STEP 2::::::::::::::::::::::::::::::::::::::::::::::::::::::-----
 #------------STEP 2------Prepare table fields--------------------
@@ -114,7 +114,7 @@ financedb2 <- financedb[financedb$name == "annualTotalRevenue" |
                         financedb$name == "annualShareIssued" |
                         financedb$name == "annualOrdinarySharesNumber",]
   uniq.economic.fields <- unique(as.character(calendardb$name))
-  short.uniq.economic.fields <- substr(uniq.economic.fields,20, nchar(uniq.economic.fields))
+  short.uniq.economic.fields <- uniq.economic.fields
   financedb2 <- financedb2[,c(-1,-2)]
   financedb2 <- pivot_wider(financedb2, names_from = c(name), values_from = c(value))
   financedb2 <- financedb2 %>% group_by(date, quote) %>% summarise_all(funs(mean(.,na.rm = T)))
